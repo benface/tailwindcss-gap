@@ -43,48 +43,48 @@ test('gap utilities are generated as they should', () => {
   }).then(css => {
     expect(css).toMatchCss(`
       .gap-1 {
-        margin: -0.25rem;
+        margin: -0.125rem;
       }
       .gap-1 > * {
-        margin: .25rem;
+        margin: .125rem;
       }
       .gap-x-1 {
+        margin-left: -0.125rem;
+        margin-right: -0.125rem;
+      }
+      .gap-x-1 > * {
+        margin-left: .125rem;
+        margin-right: .125rem;
+      }
+      .gap-y-1 {
+        margin-top: -0.125rem;
+        margin-bottom: -0.125rem;
+      }
+      .gap-y-1 > * {
+        margin-top: .125rem;
+        margin-bottom: .125rem;
+      }
+      .gap-2 {
+        margin: -0.25rem;
+      }
+      .gap-2 > * {
+        margin: .25rem;
+      }
+      .gap-x-2 {
         margin-left: -0.25rem;
         margin-right: -0.25rem;
       }
-      .gap-x-1 > * {
+      .gap-x-2 > * {
         margin-left: .25rem;
         margin-right: .25rem;
       }
-      .gap-y-1 {
+      .gap-y-2 {
         margin-top: -0.25rem;
         margin-bottom: -0.25rem;
       }
-      .gap-y-1 > * {
+      .gap-y-2 > * {
         margin-top: .25rem;
         margin-bottom: .25rem;
-      }
-      .gap-2 {
-        margin: -0.5rem;
-      }
-      .gap-2 > * {
-        margin: .5rem;
-      }
-      .gap-x-2 {
-        margin-left: -0.5rem;
-        margin-right: -0.5rem;
-      }
-      .gap-x-2 > * {
-        margin-left: .5rem;
-        margin-right: .5rem;
-      }
-      .gap-y-2 {
-        margin-top: -0.5rem;
-        margin-bottom: -0.5rem;
-      }
-      .gap-y-2 > * {
-        margin-top: .5rem;
-        margin-bottom: .5rem;
       }
     `);
   });
@@ -99,49 +99,49 @@ test('variants are supported', () => {
   }).then(css => {
     expect(css).toMatchCss(`
       .gap-1 {
-        margin: -0.25rem;
+        margin: -0.125rem;
       }
       .gap-1 > * {
-        margin: .25rem;
+        margin: .125rem;
       }
       .gap-x-1 {
-        margin-left: -0.25rem;
-        margin-right: -0.25rem;
+        margin-left: -0.125rem;
+        margin-right: -0.125rem;
       }
       .gap-x-1 > * {
-        margin-left: .25rem;
-        margin-right: .25rem;
+        margin-left: .125rem;
+        margin-right: .125rem;
       }
       .gap-y-1 {
-        margin-top: -0.25rem;
-        margin-bottom: -0.25rem;
+        margin-top: -0.125rem;
+        margin-bottom: -0.125rem;
       }
       .gap-y-1 > * {
-        margin-top: .25rem;
-        margin-bottom: .25rem;
+        margin-top: .125rem;
+        margin-bottom: .125rem;
       }
       @media (min-width: 600px) {
         .sm\\:gap-1 {
-          margin: -0.25rem;
+          margin: -0.125rem;
         }
         .sm\\:gap-1 > * {
-          margin: .25rem;
+          margin: .125rem;
         }
         .sm\\:gap-x-1 {
-          margin-left: -0.25rem;
-          margin-right: -0.25rem;
+          margin-left: -0.125rem;
+          margin-right: -0.125rem;
         }
         .sm\\:gap-x-1 > * {
-          margin-left: .25rem;
-          margin-right: .25rem;
+          margin-left: .125rem;
+          margin-right: .125rem;
         }
         .sm\\:gap-y-1 {
-          margin-top: -0.25rem;
-          margin-bottom: -0.25rem;
+          margin-top: -0.125rem;
+          margin-bottom: -0.125rem;
         }
         .sm\\:gap-y-1 > * {
-          margin-top: .25rem;
-          margin-bottom: .25rem;
+          margin-top: .125rem;
+          margin-bottom: .125rem;
         }
       }
     `);
