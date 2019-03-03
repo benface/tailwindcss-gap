@@ -30,7 +30,7 @@ npm install tailwindcss-gap
 }
 ```
 
-This plugin generates the following utilities:
+This plugin generates the following components:
 
 ```css
 .gap-1 {

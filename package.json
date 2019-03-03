@@ -23,7 +23,7 @@
     "jest": "^24.1.0",
     "jest-matcher-css": "^1.0.3",
     "postcss": "^7.0.14",
-    "release-it": "^10.1.0",
+    "release-it": "^10.2.0",
     "tailwindcss": "^0.7.4"
   }
 }

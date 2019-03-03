@@ -17,7 +17,7 @@ const generatePluginCss = (options = {}) => {
     },
     modules: disabledModules,
     plugins: [gapPlugin(options)],
-  })).process('@tailwind utilities;', {
+  })).process('@tailwind components;', {
     from: undefined,
   }).then(result => {
     return result.css;
@@ -34,7 +34,7 @@ test('there is no output by default', () => {
   });
 });
 
-test('gap utilities are generated as they should', () => {
+test('gap components are generated as they should', () => {
   return generatePluginCss({
     gaps: {
       '1': '0.25rem',
