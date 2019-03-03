@@ -19,5 +19,6 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 Initial release
 
-[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/benface/tailwindcss-gap/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/benface/tailwindcss-gap/compare/v1.0.0...v1.0.1
