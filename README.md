@@ -30,33 +30,64 @@ npm install tailwindcss-gap
 }
 ```
 
-This plugin generates the following components:
+This plugin generates the following CSS (in the `@tailwind components` bucket):
 
 ```css
+.gap, .gap-padding {
+  --gap: 0px;
+  --gap-x: var(--gap);
+  --gap-y: var(--gap);
+  --gap-x-half: calc(var(--gap-x) / 2);
+  --gap-x-half-negative: calc(var(--gap-x-half) * -1);
+  --gap-y-half: calc(var(--gap-y) / 2);
+  --gap-y-half-negative: calc(var(--gap-y-half) * -1);
+  margin: var(--gap-y-half-negative) var(--gap-x-half-negative);
+}
+.gap > * {
+  margin: var(--gap-y-half) var(--gap-x-half);
+}
+.gap-padding > * {
+  padding: var(--gap-y-half) var(--gap-x-half);
+}
+
 .gap-1 {
-  margin: -0.25rem;
+  --gap: .25rem;
 }
-.gap-1 > * {
-  margin: 0.25rem;
-}
-
 .gap-x-1 {
-  margin-left: -0.25rem;
-  margin-right: -0.25rem;
+  --gap-x: .25rem;
 }
-.gap-x-1 > * {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+.gap-y-1 {
+  --gap-y: .25rem;
 }
 
-.gap-y-1 {
-  margin-top: -0.25rem;
-  margin-bottom: -0.25rem;
+.gap-2 {
+  --gap: .5rem;
 }
-.gap-y-1 > * {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+.gap-x-2 {
+  --gap-x: .5rem;
+}
+.gap-y-2 {
+  --gap-y: .5rem;
 }
 
 /* etc. */
+```
+
+And you can use it like this in your markup:
+
+```html
+<div class="flex flex-wrap gap gap-8">
+  <div class="w-4 h-4 rounded-full bg-blue"></div>
+  <div class="w-4 h-4 rounded-full bg-blue"></div>
+  <div class="w-4 h-4 rounded-full bg-blue"></div>
+</div>
+
+<div class="sm:flex gap-padding sm:gap-x-8">
+  <div class="w-1/2">
+    Column 1
+  </div>
+  <div class="w-1/2">
+    Column 2
+  </div>
+</div>
 ```
