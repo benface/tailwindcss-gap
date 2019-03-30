@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2019-03-29
+
+### Added
+- A base `gap` class now needs to be added to gap containers in addition to the `gap-*`, `gap-x-*`, and/or `gap-y-*` classes
+- Added an alternative `gap-padding` base class to use padding on gap children, instead of margin
+
+### Changed
+- The generated CSS now uses custom properties to avoid repetition, so the resulting CSS is much smaller
+
 ## [1.1.0] - 2019-03-02
 
 ### Changed
@@ -19,6 +28,7 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 Initial release
 
-[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/benface/tailwindcss-gap/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/benface/tailwindcss-gap/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/benface/tailwindcss-gap/compare/v1.0.0...v1.0.1

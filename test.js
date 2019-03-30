@@ -24,13 +24,32 @@ const generatePluginCss = (options = {}) => {
   });
 };
 
+const baseCss = `
+  .gap, .gap-padding {
+    --gap: 0px;
+    --gap-x: var(--gap);
+    --gap-y: var(--gap);
+    --gap-x-half: calc(var(--gap-x) / 2);
+    --gap-x-half-negative: calc(var(--gap-x-half) * -1);
+    --gap-y-half: calc(var(--gap-y) / 2);
+    --gap-y-half-negative: calc(var(--gap-y-half) * -1);
+    margin: var(--gap-y-half-negative) var(--gap-x-half-negative);
+  }
+  .gap > * {
+    margin: var(--gap-y-half) var(--gap-x-half);
+  }
+  .gap-padding > * {
+    padding: var(--gap-y-half) var(--gap-x-half);
+  }
+`;
+
 expect.extend({
   toMatchCss: cssMatcher,
 });
 
-test('there is no output by default', () => {
+test('options are not required', () => {
   return generatePluginCss().then(css => {
-    expect(css).toMatchCss(``);
+    expect(css).toMatchCss(baseCss);
   });
 });
 
@@ -42,49 +61,24 @@ test('gap components are generated as they should', () => {
     },
   }).then(css => {
     expect(css).toMatchCss(`
+      ${baseCss}
       .gap-1 {
-        margin: -0.125rem;
-      }
-      .gap-1 > * {
-        margin: .125rem;
+        --gap: .25rem;
       }
       .gap-x-1 {
-        margin-left: -0.125rem;
-        margin-right: -0.125rem;
-      }
-      .gap-x-1 > * {
-        margin-left: .125rem;
-        margin-right: .125rem;
+        --gap-x: .25rem;
       }
       .gap-y-1 {
-        margin-top: -0.125rem;
-        margin-bottom: -0.125rem;
-      }
-      .gap-y-1 > * {
-        margin-top: .125rem;
-        margin-bottom: .125rem;
+        --gap-y: .25rem;
       }
       .gap-2 {
-        margin: -0.25rem;
-      }
-      .gap-2 > * {
-        margin: .25rem;
+        --gap: .5rem;
       }
       .gap-x-2 {
-        margin-left: -0.25rem;
-        margin-right: -0.25rem;
-      }
-      .gap-x-2 > * {
-        margin-left: .25rem;
-        margin-right: .25rem;
+        --gap-x: .5rem;
       }
       .gap-y-2 {
-        margin-top: -0.25rem;
-        margin-bottom: -0.25rem;
-      }
-      .gap-y-2 > * {
-        margin-top: .25rem;
-        margin-bottom: .25rem;
+        --gap-y: .5rem;
       }
     `);
   });
@@ -98,50 +92,25 @@ test('variants are supported', () => {
     variants: ['responsive'],
   }).then(css => {
     expect(css).toMatchCss(`
+      ${baseCss}
       .gap-1 {
-        margin: -0.125rem;
-      }
-      .gap-1 > * {
-        margin: .125rem;
+        --gap: .25rem;
       }
       .gap-x-1 {
-        margin-left: -0.125rem;
-        margin-right: -0.125rem;
-      }
-      .gap-x-1 > * {
-        margin-left: .125rem;
-        margin-right: .125rem;
+        --gap-x: .25rem;
       }
       .gap-y-1 {
-        margin-top: -0.125rem;
-        margin-bottom: -0.125rem;
-      }
-      .gap-y-1 > * {
-        margin-top: .125rem;
-        margin-bottom: .125rem;
+        --gap-y: .25rem;
       }
       @media (min-width: 600px) {
         .sm\\:gap-1 {
-          margin: -0.125rem;
-        }
-        .sm\\:gap-1 > * {
-          margin: .125rem;
+          --gap: .25rem;
         }
         .sm\\:gap-x-1 {
-          margin-left: -0.125rem;
-          margin-right: -0.125rem;
-        }
-        .sm\\:gap-x-1 > * {
-          margin-left: .125rem;
-          margin-right: .125rem;
+          --gap-x: .25rem;
         }
         .sm\\:gap-y-1 {
-          margin-top: -0.125rem;
-          margin-bottom: -0.125rem;
-        }
-        .sm\\:gap-y-1 > * {
-          margin-top: .125rem;
-          margin-bottom: .125rem;
+          --gap-y: .25rem;
         }
       }
     `);

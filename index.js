@@ -1,27 +1,38 @@
 const _ = require('lodash');
-const valueParser = require('postcss-value-parser');
 
 module.exports = ({
   gaps = {},
   variants = [],
 } = {}) => ({ e, addComponents }) => {
-  let components = _.map(gaps, (value, name) => {
-    let parsedValue = valueParser.unit(value);
-    let halfValue = `${parsedValue.number / 2}${parsedValue.unit}`;
-    let negativeHalfValue = `-${halfValue}`;
+  addComponents({
+    '.gap, .gap-padding': {
+      '--gap': '0px',
+      '--gap-x': 'var(--gap)',
+      '--gap-y': 'var(--gap)',
+      '--gap-x-half': 'calc(var(--gap-x) / 2)',
+      '--gap-x-half-negative': 'calc(var(--gap-x-half) * -1)',
+      '--gap-y-half': 'calc(var(--gap-y) / 2)',
+      '--gap-y-half-negative': 'calc(var(--gap-y-half) * -1)',
+      'margin': 'var(--gap-y-half-negative) var(--gap-x-half-negative)',
+    },
+    '.gap > *': {
+      'margin': 'var(--gap-y-half) var(--gap-x-half)',
+    },
+    '.gap-padding > *': {
+      'padding': 'var(--gap-y-half) var(--gap-x-half)',
+    },
+  });
+  let gapValues = _.map(gaps, (value, name) => {
     return {
-      [`.${e(`gap-${name}`)}`]: { margin: negativeHalfValue },
-      [`.${e(`gap-${name}`)} > *`]: { margin: halfValue },
-      [`.${e(`gap-x-${name}`)}`]: { marginLeft: negativeHalfValue, marginRight: negativeHalfValue },
-      [`.${e(`gap-x-${name}`)} > *`]: { marginLeft: halfValue, marginRight: halfValue },
-      [`.${e(`gap-y-${name}`)}`]: { marginTop: negativeHalfValue, marginBottom: negativeHalfValue },
-      [`.${e(`gap-y-${name}`)} > *`]: { marginTop: halfValue, marginBottom: halfValue },
+      [`.${e(`gap-${name}`)}`]: { '--gap': value },
+      [`.${e(`gap-x-${name}`)}`]: { '--gap-x': value },
+      [`.${e(`gap-y-${name}`)}`]: { '--gap-y': value },
     };
   });
   if (variants.length > 0) {
-    components = {
-      [`@variants ${variants.join(', ')}`]: components,
+    gapValues = {
+      [`@variants ${variants.join(', ')}`]: gapValues,
     };
   }
-  addComponents(components);
+  addComponents(gapValues);
 };
