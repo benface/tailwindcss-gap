@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-gap",
-  "version": "2.0.0",
+  "version": "3.0.0-beta.1",
   "description": "Tailwind CSS plugin to generate gap utilities",
   "author": "Benoît Rouleau <benoit.rouleau@icloud.com>",
   "license": "ISC",
