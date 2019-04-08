@@ -9,28 +9,31 @@ npm install tailwindcss-gap
 ## Usage
 
 ```js
-// In your Tailwind CSS config
+// tailwind.config.js
 {
+  theme: {
+    gap: { // defaults to {}
+      '0': '0',
+      '1': '0.25rem',
+      '2': '0.5rem',
+      '3': '0.75rem',
+      '4': '1rem',
+      '5': '1.25rem',
+      '6': '1.5rem',
+      '7': '1.75rem',
+      '8': '2rem',
+    },
+  },
+  variants: {
+    gap: ['responsive'], // defaults to ['responsive']
+  },
   plugins: [
-    require('tailwindcss-gap')({
-      gaps: {
-        '0': '0',
-        '1': '0.25rem',
-        '2': '0.5rem',
-        '3': '0.75rem',
-        '4': '1rem',
-        '5': '1.25rem',
-        '6': '1.5rem',
-        '7': '1.75rem',
-        '8': '2rem',
-      },
-      variants: ['responsive'],
-    }),
+    require('tailwindcss-gap')(),
   ],
 }
 ```
 
-This plugin generates the following CSS (in the `@tailwind components` bucket):
+This plugin generates the following classes (in the `@tailwind components` slot, so that padding and margin utilities can override them):
 
 ```css
 .gap, .gap-padding {
@@ -73,7 +76,7 @@ This plugin generates the following CSS (in the `@tailwind components` bucket):
 /* etc. */
 ```
 
-And you can use it like this in your markup:
+And you can use them like this in your markup:
 
 ```html
 <div class="flex flex-wrap gap gap-8">
