@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 module.exports = function() {
-  return ({ config, e, addComponents }) => {
+  return ({ addComponents, config, e, variants }) => {
     const defaultGapTheme = {};
     const defaultGapVariants = ['responsive'];
 
@@ -51,11 +51,11 @@ module.exports = function() {
       )
     );
 
-    const variants = config('variants.gap', defaultGapVariants);
+    const gapVariants = variants('gap', defaultGapVariants);
 
-    if (variants.length > 0) {
+    if (gapVariants.length > 0) {
       addComponents({
-        [`@variants ${variants.join(', ')}`]: gapUtilities,
+        [`@variants ${gapVariants.join(', ')}`]: gapUtilities,
       });
     }
     else {
