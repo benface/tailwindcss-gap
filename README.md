@@ -37,9 +37,8 @@ This plugin generates the following classes (in the `@tailwind components` slot,
 
 ```css
 .gap, .gap-padding {
-  --gap: 0px;
-  --gap-x: var(--gap);
-  --gap-y: var(--gap);
+  --gap-x: 0px;
+  --gap-y: 0px;
   --gap-x-half: calc(var(--gap-x) / 2);
   --gap-x-half-negative: calc(var(--gap-x-half) * -1);
   --gap-y-half: calc(var(--gap-y) / 2);
@@ -54,25 +53,27 @@ This plugin generates the following classes (in the `@tailwind components` slot,
 }
 
 .gap-1 {
-  --gap: .25rem;
+  --gap-x: 0.25rem;
+  --gap-y: 0.25rem;
 }
+.gap-2 {
+  --gap-x: 0.5rem;
+  --gap-y: 0.5rem;
+}
+/* etc. */
+
 .gap-x-1 {
-  --gap-x: .25rem;
+  --gap-x: 0.25rem;
 }
 .gap-y-1 {
-  --gap-y: .25rem;
-}
-
-.gap-2 {
-  --gap: .5rem;
+  --gap-y: 0.25rem;
 }
 .gap-x-2 {
-  --gap-x: .5rem;
+  --gap-x: 0.5rem;
 }
 .gap-y-2 {
-  --gap-y: .5rem;
+  --gap-y: 0.5rem;
 }
-
 /* etc. */
 ```
 
