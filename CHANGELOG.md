@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.0.0] - 2019-05-15
 
 ### Changed since 3.0.0-beta.1
 - Added support for global variants thanks to Tailwind’s `variants()` helper function
+
+### Fixed since 3.0.0-beta.1
+- `gap-*` utilities with variants now correctly override `gap-x-*` and `gap-y-*` utilities (e.g. `gap-x-4 gap-y-2 sm:gap-0` now removes all gaps at the `sm` breakpoint as expected)
 
 ### Added since 2.x
 - Tailwind 1.0.0 compatibility
@@ -49,7 +52,8 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 Initial release
 
-[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v3.0.0-beta.1...HEAD
+[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/benface/tailwindcss-gap/compare/v3.0.0-beta.1...v3.0.0
 [3.0.0-beta.1]: https://github.com/benface/tailwindcss-gap/compare/v2.0.0...v3.0.0-beta.1
 [2.0.0]: https://github.com/benface/tailwindcss-gap/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/benface/tailwindcss-gap/compare/v1.0.1...v1.1.0

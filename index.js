@@ -1,15 +1,17 @@
 const _ = require('lodash');
 
 module.exports = function() {
-  return ({ addComponents, config, e, variants }) => {
+  return ({ theme, variants, addComponents, e }) => {
     const defaultGapTheme = {};
     const defaultGapVariants = ['responsive'];
 
+    const gapTheme = theme('gap', defaultGapTheme);
+    const gapVariants = variants('gap', defaultGapVariants);
+
     addComponents({
       '.gap, .gap-padding': {
-        '--gap': '0px',
-        '--gap-x': 'var(--gap)',
-        '--gap-y': 'var(--gap)',
+        '--gap-x': '0px',
+        '--gap-y': '0px',
         '--gap-x-half': 'calc(var(--gap-x) / 2)',
         '--gap-x-half-negative': 'calc(var(--gap-x-half) * -1)',
         '--gap-y-half': 'calc(var(--gap-y) / 2)',
@@ -24,16 +26,22 @@ module.exports = function() {
       },
     });
 
-    const gapUtilities = _.fromPairs(
+    const combinedGapUtilities = _.fromPairs(
+      _.map(gapTheme, (value, modifier) => {
+        return [
+          `.${e(`gap-${modifier}`)}`,
+          {
+            '--gap-x': value,
+            '--gap-y': value,
+          },
+        ];
+      })
+    );
+
+    const splitGapUtilities = _.fromPairs(
       _.concat(
-        ..._.map(config('theme.gap', defaultGapTheme), (value, modifier) => {
+        ..._.map(gapTheme, (value, modifier) => {
           return [
-            [
-              `.${e(`gap-${modifier}`)}`,
-              {
-                '--gap': value,
-              },
-            ],
             [
               `.${e(`gap-x-${modifier}`)}`,
               {
@@ -51,7 +59,7 @@ module.exports = function() {
       )
     );
 
-    const gapVariants = variants('gap', defaultGapVariants);
+    const gapUtilities = _.merge({}, combinedGapUtilities, splitGapUtilities);
 
     if (gapVariants.length > 0) {
       addComponents({
