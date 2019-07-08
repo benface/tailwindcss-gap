@@ -28,7 +28,9 @@ npm install tailwindcss-gap
     gap: ['responsive'], // defaults to ['responsive']
   },
   plugins: [
-    require('tailwindcss-gap')(),
+    require('tailwindcss-gap')({
+      legacy: false, // defaults to false, set to true to output IE-compatible CSS (no custom properties, but much larger CSS for the same functionality)
+    }),
   ],
 }
 ```
@@ -95,3 +97,7 @@ And you can use them like this in your markup:
   </div>
 </div>
 ```
+
+## Known issues
+
+- In `legacy` mode, variants other than `responsive` (e.g. `hover`, `focus`, etc.) don’t work properly, in part due to [this Tailwind CSS issue](https://github.com/tailwindcss/tailwindcss/issues/1009) which may or may not get fixed. As changing the layout on hover/focus is not a common use case, and since it only affects legacy mode (which you would only enable if you need gaps to appear in Internet Explorer), I don’t plan on fixing this.

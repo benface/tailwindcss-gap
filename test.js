@@ -4,7 +4,7 @@ const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const gapPlugin = require('./index.js');
 
-const generatePluginCss = (config) => {
+const generatePluginCss = (config, pluginOptions = {}) => {
   return postcss(
     tailwindcss(
       _.merge({
@@ -15,7 +15,7 @@ const generatePluginCss = (config) => {
         },
         corePlugins: false,
         plugins: [
-          gapPlugin(),
+          gapPlugin(pluginOptions),
         ],
       }, config)
     )
@@ -238,6 +238,156 @@ test('gaps can be referenced from the theme with a closure', () => {
       }
       .gap-y-4 {
         --gap-y: 1rem;
+      }
+    `);
+  });
+});
+
+test('legacy mode outputs IE-compatible CSS', () => {
+  return generatePluginCss({
+    theme: {
+      gap: {
+        '1': '0.25rem',
+        '2': '0.5rem',
+      },
+    },
+  }, {
+    legacy: true,
+  }).then(css => {
+    expect(css).toMatchCss(`
+      .gap.gap-1, .gap-padding.gap-1 {
+        margin: -0.125rem;
+      }
+      .gap.gap-1 > * {
+        margin: 0.125rem;
+      }
+      .gap-padding.gap-1 > * {
+        padding: 0.125rem;
+      }
+      .gap.gap-2, .gap-padding.gap-2 {
+        margin: -0.25rem;
+      }
+      .gap.gap-2 > * {
+        margin: 0.25rem;
+      }
+      .gap-padding.gap-2 > * {
+        padding: 0.25rem;
+      }
+      .gap.gap-x-1, .gap-padding.gap-x-1 {
+        margin-left: -0.125rem;
+        margin-right: -0.125rem;
+      }
+      .gap.gap-x-1 > * {
+        margin-left: 0.125rem;
+        margin-right: 0.125rem;
+      }
+      .gap-padding.gap-x-1 > * {
+        padding-left: 0.125rem;
+        padding-right: 0.125rem;
+      }
+      .gap.gap-y-1, .gap-padding.gap-y-1 {
+        margin-top: -0.125rem;
+        margin-bottom: -0.125rem;
+      }
+      .gap.gap-y-1 > * {
+        margin-top: 0.125rem;
+        margin-bottom: 0.125rem;
+      }
+      .gap-padding.gap-y-1 > * {
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+      }
+      .gap.gap-x-2, .gap-padding.gap-x-2 {
+        margin-left: -0.25rem;
+        margin-right: -0.25rem;
+      }
+      .gap.gap-x-2 > * {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+      }
+      .gap-padding.gap-x-2 > * {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+      }
+      .gap.gap-y-2, .gap-padding.gap-y-2 {
+        margin-top: -0.25rem;
+        margin-bottom: -0.25rem;
+      }
+      .gap.gap-y-2 > * {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .gap-padding.gap-y-2 > * {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+      @media (min-width: 640px) {
+        .gap.sm\\:gap-1, .gap-padding.sm\\:gap-1 {
+          margin: -0.125rem;
+        }
+        .gap.sm\\:gap-1 > * {
+          margin: 0.125rem;
+        }
+        .gap-padding.sm\\:gap-1 > * {
+          padding: 0.125rem;
+        }
+        .gap.sm\\:gap-2, .gap-padding.sm\\:gap-2 {
+          margin: -0.25rem;
+        }
+        .gap.sm\\:gap-2 > * {
+          margin: 0.25rem;
+        }
+        .gap-padding.sm\\:gap-2 > * {
+          padding: 0.25rem;
+        }
+        .gap.sm\\:gap-x-1, .gap-padding.sm\\:gap-x-1 {
+          margin-left: -0.125rem;
+          margin-right: -0.125rem;
+        }
+        .gap.sm\\:gap-x-1 > * {
+          margin-left: 0.125rem;
+          margin-right: 0.125rem;
+        }
+        .gap-padding.sm\\:gap-x-1 > * {
+          padding-left: 0.125rem;
+          padding-right: 0.125rem;
+        }
+        .gap.sm\\:gap-y-1, .gap-padding.sm\\:gap-y-1 {
+          margin-top: -0.125rem;
+          margin-bottom: -0.125rem;
+        }
+        .gap.sm\\:gap-y-1 > * {
+          margin-top: 0.125rem;
+          margin-bottom: 0.125rem;
+        }
+        .gap-padding.sm\\:gap-y-1 > * {
+          padding-top: 0.125rem;
+          padding-bottom: 0.125rem;
+        }
+        .gap.sm\\:gap-x-2, .gap-padding.sm\\:gap-x-2 {
+          margin-left: -0.25rem;
+          margin-right: -0.25rem;
+        }
+        .gap.sm\\:gap-x-2 > * {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+        }
+        .gap-padding.sm\\:gap-x-2 > * {
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+        }
+        .gap.sm\\:gap-y-2, .gap-padding.sm\\:gap-y-2 {
+          margin-top: -0.25rem;
+          margin-bottom: -0.25rem;
+        }
+        .gap.sm\\:gap-y-2 > * {
+          margin-top: 0.25rem;
+          margin-bottom: 0.25rem;
+        }
+        .gap-padding.sm\\:gap-y-2 > * {
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+        }
       }
     `);
   });
