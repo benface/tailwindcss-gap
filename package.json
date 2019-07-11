@@ -4,10 +4,7 @@
   "description": "Tailwind CSS plugin to generate gap utilities",
   "author": "Benoît Rouleau <benoit.rouleau@icloud.com>",
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/benface/tailwindcss-gap.git"
-  },
+  "repository": "https://github.com/benface/tailwindcss-gap.git",
   "bugs": "https://github.com/benface/tailwindcss-gap/issues",
   "homepage": "https://github.com/benface/tailwindcss-gap",
   "scripts": {
@@ -15,7 +12,7 @@
     "release": "f(){ release-it $1 && github-release-from-changelog ;};f"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "postcss-value-parser": "^4.0.0"
   },
   "devDependencies": {
@@ -23,7 +20,7 @@
     "jest": "^24.8.0",
     "jest-matcher-css": "^1.1.0",
     "postcss": "^7.0.17",
-    "release-it": "^12.3.2",
-    "tailwindcss": "1.0.4"
+    "release-it": "^12.3.3",
+    "tailwindcss": "1.0.5"
   }
 }

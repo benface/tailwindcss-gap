@@ -47,19 +47,19 @@ module.exports = function(options = {}) {
             const negativeHalfValue = `-${halfValue}`;
             return [
               [
-                `.gap.${e(`gap-${modifier}`)}, .gap-padding.${e(`gap-${modifier}`)}`,
+                `.${e(`gap-${modifier}`)}`,
                 {
                   margin: negativeHalfValue,
                 },
               ],
               [
-                `.gap.${e(`gap-${modifier}`)} > *`,
+                `.${e(`gap-${modifier}`)}:not([class*="gap-padding"]) > *`,
                 {
                   margin: halfValue,
                 },
               ],
               [
-                `.gap-padding.${e(`gap-${modifier}`)} > *`,
+                `.${e(`gap-${modifier}`)}[class*="gap-padding"] > *`,
                 {
                   padding: halfValue,
                 },
@@ -87,42 +87,42 @@ module.exports = function(options = {}) {
             const negativeHalfValue = `-${halfValue}`;
             return [
               [
-                `.gap.${e(`gap-x-${modifier}`)}, .gap-padding.${e(`gap-x-${modifier}`)}`,
+                `.${e(`gap-x-${modifier}`)}`,
                 {
                   marginLeft: negativeHalfValue,
                   marginRight: negativeHalfValue,
                 },
               ],
               [
-                `.gap.${e(`gap-x-${modifier}`)} > *`,
+                `.${e(`gap-x-${modifier}`)}:not([class*="gap-padding"]) > *`,
                 {
                   marginLeft: halfValue,
                   marginRight: halfValue,
                 },
               ],
               [
-                `.gap-padding.${e(`gap-x-${modifier}`)} > *`,
+                `.${e(`gap-x-${modifier}`)}[class*="gap-padding"] > *`,
                 {
                   paddingLeft: halfValue,
                   paddingRight: halfValue,
                 },
               ],
               [
-                `.gap.${e(`gap-y-${modifier}`)}, .gap-padding.${e(`gap-y-${modifier}`)}`,
+                `.${e(`gap-y-${modifier}`)}`,
                 {
                   marginTop: negativeHalfValue,
                   marginBottom: negativeHalfValue,
                 },
               ],
               [
-                `.gap.${e(`gap-y-${modifier}`)} > *`,
+                `.${e(`gap-y-${modifier}`)}:not([class*="gap-padding"]) > *`,
                 {
                   marginTop: halfValue,
                   marginBottom: halfValue,
                 },
               ],
               [
-                `.gap-padding.${e(`gap-y-${modifier}`)} > *`,
+                `.${e(`gap-y-${modifier}`)}[class*="gap-padding"] > *`,
                 {
                   paddingTop: halfValue,
                   paddingBottom: halfValue,
@@ -148,7 +148,10 @@ module.exports = function(options = {}) {
       )
     );
 
-    const gapUtilities = _.merge({}, combinedGapUtilities, splitGapUtilities);
+    const gapUtilities = {
+      ...combinedGapUtilities,
+      ...splitGapUtilities,
+    };
 
     if (gapVariants.length > 0) {
       addComponents({

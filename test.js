@@ -251,140 +251,360 @@ test('legacy mode outputs IE-compatible CSS', () => {
         '2': '0.5rem',
       },
     },
+    variants: {
+      gap: [],
+    },
   }, {
     legacy: true,
   }).then(css => {
     expect(css).toMatchCss(`
-      .gap.gap-1, .gap-padding.gap-1 {
+      .gap-1 {
         margin: -0.125rem;
       }
-      .gap.gap-1 > * {
+      .gap-1:not([class*="gap-padding"]) > * {
         margin: 0.125rem;
       }
-      .gap-padding.gap-1 > * {
+      .gap-1[class*="gap-padding"] > * {
         padding: 0.125rem;
       }
-      .gap.gap-2, .gap-padding.gap-2 {
+      .gap-2 {
         margin: -0.25rem;
       }
-      .gap.gap-2 > * {
+      .gap-2:not([class*="gap-padding"]) > * {
         margin: 0.25rem;
       }
-      .gap-padding.gap-2 > * {
+      .gap-2[class*="gap-padding"] > * {
         padding: 0.25rem;
       }
-      .gap.gap-x-1, .gap-padding.gap-x-1 {
+      .gap-x-1 {
         margin-left: -0.125rem;
         margin-right: -0.125rem;
       }
-      .gap.gap-x-1 > * {
+      .gap-x-1:not([class*="gap-padding"]) > * {
         margin-left: 0.125rem;
         margin-right: 0.125rem;
       }
-      .gap-padding.gap-x-1 > * {
+      .gap-x-1[class*="gap-padding"] > * {
         padding-left: 0.125rem;
         padding-right: 0.125rem;
       }
-      .gap.gap-y-1, .gap-padding.gap-y-1 {
+      .gap-y-1 {
         margin-top: -0.125rem;
         margin-bottom: -0.125rem;
       }
-      .gap.gap-y-1 > * {
+      .gap-y-1:not([class*="gap-padding"]) > * {
         margin-top: 0.125rem;
         margin-bottom: 0.125rem;
       }
-      .gap-padding.gap-y-1 > * {
+      .gap-y-1[class*="gap-padding"] > * {
         padding-top: 0.125rem;
         padding-bottom: 0.125rem;
       }
-      .gap.gap-x-2, .gap-padding.gap-x-2 {
+      .gap-x-2 {
         margin-left: -0.25rem;
         margin-right: -0.25rem;
       }
-      .gap.gap-x-2 > * {
+      .gap-x-2:not([class*="gap-padding"]) > * {
         margin-left: 0.25rem;
         margin-right: 0.25rem;
       }
-      .gap-padding.gap-x-2 > * {
+      .gap-x-2[class*="gap-padding"] > * {
         padding-left: 0.25rem;
         padding-right: 0.25rem;
       }
-      .gap.gap-y-2, .gap-padding.gap-y-2 {
+      .gap-y-2 {
         margin-top: -0.25rem;
         margin-bottom: -0.25rem;
       }
-      .gap.gap-y-2 > * {
+      .gap-y-2:not([class*="gap-padding"]) > * {
         margin-top: 0.25rem;
         margin-bottom: 0.25rem;
       }
-      .gap-padding.gap-y-2 > * {
+      .gap-y-2[class*="gap-padding"] > * {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+    `);
+  });
+});
+
+test('legacy mode works with variants', () => {
+  return generatePluginCss({
+    theme: {
+      gap: {
+        '1': '0.25rem',
+        '2': '0.5rem',
+      },
+    },
+    variants: {
+      gap: ['responsive', 'hover'],
+    },
+  }, {
+    legacy: true,
+  }).then(css => {
+    expect(css).toMatchCss(`
+      .gap-1 {
+        margin: -0.125rem;
+      }
+      .gap-1:not([class*="gap-padding"]) > * {
+        margin: 0.125rem;
+      }
+      .gap-1[class*="gap-padding"] > * {
+        padding: 0.125rem;
+      }
+      .gap-2 {
+        margin: -0.25rem;
+      }
+      .gap-2:not([class*="gap-padding"]) > * {
+        margin: 0.25rem;
+      }
+      .gap-2[class*="gap-padding"] > * {
+        padding: 0.25rem;
+      }
+      .gap-x-1 {
+        margin-left: -0.125rem;
+        margin-right: -0.125rem;
+      }
+      .gap-x-1:not([class*="gap-padding"]) > * {
+        margin-left: 0.125rem;
+        margin-right: 0.125rem;
+      }
+      .gap-x-1[class*="gap-padding"] > * {
+        padding-left: 0.125rem;
+        padding-right: 0.125rem;
+      }
+      .gap-y-1 {
+        margin-top: -0.125rem;
+        margin-bottom: -0.125rem;
+      }
+      .gap-y-1:not([class*="gap-padding"]) > * {
+        margin-top: 0.125rem;
+        margin-bottom: 0.125rem;
+      }
+      .gap-y-1[class*="gap-padding"] > * {
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+      }
+      .gap-x-2 {
+        margin-left: -0.25rem;
+        margin-right: -0.25rem;
+      }
+      .gap-x-2:not([class*="gap-padding"]) > * {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+      }
+      .gap-x-2[class*="gap-padding"] > * {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+      }
+      .gap-y-2 {
+        margin-top: -0.25rem;
+        margin-bottom: -0.25rem;
+      }
+      .gap-y-2:not([class*="gap-padding"]) > * {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .gap-y-2[class*="gap-padding"] > * {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+      .hover\\:gap-1:hover {
+        margin: -0.125rem;
+      }
+      .hover\\:gap-1:hover:not([class*="gap-padding"]) > * {
+        margin: 0.125rem;
+      }
+      .hover\\:gap-1:hover[class*="gap-padding"] > * {
+        padding: 0.125rem;
+      }
+      .hover\\:gap-2:hover {
+        margin: -0.25rem;
+      }
+      .hover\\:gap-2:hover:not([class*="gap-padding"]) > * {
+        margin: 0.25rem;
+      }
+      .hover\\:gap-2:hover[class*="gap-padding"] > * {
+        padding: 0.25rem;
+      }
+      .hover\\:gap-x-1:hover {
+        margin-left: -0.125rem;
+        margin-right: -0.125rem;
+      }
+      .hover\\:gap-x-1:hover:not([class*="gap-padding"]) > * {
+        margin-left: 0.125rem;
+        margin-right: 0.125rem;
+      }
+      .hover\\:gap-x-1:hover[class*="gap-padding"] > * {
+        padding-left: 0.125rem;
+        padding-right: 0.125rem;
+      }
+      .hover\\:gap-y-1:hover {
+        margin-top: -0.125rem;
+        margin-bottom: -0.125rem;
+      }
+      .hover\\:gap-y-1:hover:not([class*="gap-padding"]) > * {
+        margin-top: 0.125rem;
+        margin-bottom: 0.125rem;
+      }
+      .hover\\:gap-y-1:hover[class*="gap-padding"] > * {
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+      }
+      .hover\\:gap-x-2:hover {
+        margin-left: -0.25rem;
+        margin-right: -0.25rem;
+      }
+      .hover\\:gap-x-2:hover:not([class*="gap-padding"]) > * {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+      }
+      .hover\\:gap-x-2:hover[class*="gap-padding"] > * {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+      }
+      .hover\\:gap-y-2:hover {
+        margin-top: -0.25rem;
+        margin-bottom: -0.25rem;
+      }
+      .hover\\:gap-y-2:hover:not([class*="gap-padding"]) > * {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .hover\\:gap-y-2:hover[class*="gap-padding"] > * {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
       }
       @media (min-width: 640px) {
-        .gap.sm\\:gap-1, .gap-padding.sm\\:gap-1 {
+        .sm\\:gap-1 {
           margin: -0.125rem;
         }
-        .gap.sm\\:gap-1 > * {
+        .sm\\:gap-1:not([class*="gap-padding"]) > * {
           margin: 0.125rem;
         }
-        .gap-padding.sm\\:gap-1 > * {
+        .sm\\:gap-1[class*="gap-padding"] > * {
           padding: 0.125rem;
         }
-        .gap.sm\\:gap-2, .gap-padding.sm\\:gap-2 {
+        .sm\\:gap-2 {
           margin: -0.25rem;
         }
-        .gap.sm\\:gap-2 > * {
+        .sm\\:gap-2:not([class*="gap-padding"]) > * {
           margin: 0.25rem;
         }
-        .gap-padding.sm\\:gap-2 > * {
+        .sm\\:gap-2[class*="gap-padding"] > * {
           padding: 0.25rem;
         }
-        .gap.sm\\:gap-x-1, .gap-padding.sm\\:gap-x-1 {
+        .sm\\:gap-x-1 {
           margin-left: -0.125rem;
           margin-right: -0.125rem;
         }
-        .gap.sm\\:gap-x-1 > * {
+        .sm\\:gap-x-1:not([class*="gap-padding"]) > * {
           margin-left: 0.125rem;
           margin-right: 0.125rem;
         }
-        .gap-padding.sm\\:gap-x-1 > * {
+        .sm\\:gap-x-1[class*="gap-padding"] > * {
           padding-left: 0.125rem;
           padding-right: 0.125rem;
         }
-        .gap.sm\\:gap-y-1, .gap-padding.sm\\:gap-y-1 {
+        .sm\\:gap-y-1 {
           margin-top: -0.125rem;
           margin-bottom: -0.125rem;
         }
-        .gap.sm\\:gap-y-1 > * {
+        .sm\\:gap-y-1:not([class*="gap-padding"]) > * {
           margin-top: 0.125rem;
           margin-bottom: 0.125rem;
         }
-        .gap-padding.sm\\:gap-y-1 > * {
+        .sm\\:gap-y-1[class*="gap-padding"] > * {
           padding-top: 0.125rem;
           padding-bottom: 0.125rem;
         }
-        .gap.sm\\:gap-x-2, .gap-padding.sm\\:gap-x-2 {
+        .sm\\:gap-x-2 {
           margin-left: -0.25rem;
           margin-right: -0.25rem;
         }
-        .gap.sm\\:gap-x-2 > * {
+        .sm\\:gap-x-2:not([class*="gap-padding"]) > * {
           margin-left: 0.25rem;
           margin-right: 0.25rem;
         }
-        .gap-padding.sm\\:gap-x-2 > * {
+        .sm\\:gap-x-2[class*="gap-padding"] > * {
           padding-left: 0.25rem;
           padding-right: 0.25rem;
         }
-        .gap.sm\\:gap-y-2, .gap-padding.sm\\:gap-y-2 {
+        .sm\\:gap-y-2 {
           margin-top: -0.25rem;
           margin-bottom: -0.25rem;
         }
-        .gap.sm\\:gap-y-2 > * {
+        .sm\\:gap-y-2:not([class*="gap-padding"]) > * {
           margin-top: 0.25rem;
           margin-bottom: 0.25rem;
         }
-        .gap-padding.sm\\:gap-y-2 > * {
+        .sm\\:gap-y-2[class*="gap-padding"] > * {
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+        }
+        .sm\\:hover\\:gap-1:hover {
+          margin: -0.125rem;
+        }
+        .sm\\:hover\\:gap-1:hover:not([class*="gap-padding"]) > * {
+          margin: 0.125rem;
+        }
+        .sm\\:hover\\:gap-1:hover[class*="gap-padding"] > * {
+          padding: 0.125rem;
+        }
+        .sm\\:hover\\:gap-2:hover {
+          margin: -0.25rem;
+        }
+        .sm\\:hover\\:gap-2:hover:not([class*="gap-padding"]) > * {
+          margin: 0.25rem;
+        }
+        .sm\\:hover\\:gap-2:hover[class*="gap-padding"] > * {
+          padding: 0.25rem;
+        }
+        .sm\\:hover\\:gap-x-1:hover {
+          margin-left: -0.125rem;
+          margin-right: -0.125rem;
+        }
+        .sm\\:hover\\:gap-x-1:hover:not([class*="gap-padding"]) > * {
+          margin-left: 0.125rem;
+          margin-right: 0.125rem;
+        }
+        .sm\\:hover\\:gap-x-1:hover[class*="gap-padding"] > * {
+          padding-left: 0.125rem;
+          padding-right: 0.125rem;
+        }
+        .sm\\:hover\\:gap-y-1:hover {
+          margin-top: -0.125rem;
+          margin-bottom: -0.125rem;
+        }
+        .sm\\:hover\\:gap-y-1:hover:not([class*="gap-padding"]) > * {
+          margin-top: 0.125rem;
+          margin-bottom: 0.125rem;
+        }
+        .sm\\:hover\\:gap-y-1:hover[class*="gap-padding"] > * {
+          padding-top: 0.125rem;
+          padding-bottom: 0.125rem;
+        }
+        .sm\\:hover\\:gap-x-2:hover {
+          margin-left: -0.25rem;
+          margin-right: -0.25rem;
+        }
+        .sm\\:hover\\:gap-x-2:hover:not([class*="gap-padding"]) > * {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+        }
+        .sm\\:hover\\:gap-x-2:hover[class*="gap-padding"] > * {
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+        }
+        .sm\\:hover\\:gap-y-2:hover {
+          margin-top: -0.25rem;
+          margin-bottom: -0.25rem;
+        }
+        .sm\\:hover\\:gap-y-2:hover:not([class*="gap-padding"]) > * {
+          margin-top: 0.25rem;
+          margin-bottom: 0.25rem;
+        }
+        .sm\\:hover\\:gap-y-2:hover[class*="gap-padding"] > * {
           padding-top: 0.25rem;
           padding-bottom: 0.25rem;
         }
