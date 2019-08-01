@@ -1,6 +1,11 @@
 const _ = require('lodash');
 const valueParser = require('postcss-value-parser');
 
+const getHalfValue = function(value) {
+  const parsedValue = valueParser.unit(value);
+  return `${parsedValue.number / 2}${parsedValue.unit}`;
+};
+
 module.exports = function(options = {}) {
   return ({ theme, variants, addComponents, e }) => {
     const defaultOptions = {
@@ -33,11 +38,6 @@ module.exports = function(options = {}) {
         },
       });
     }
-
-    const getHalfValue = function(value) {
-      const parsedValue = valueParser.unit(value);
-      return `${parsedValue.number / 2}${parsedValue.unit}`;
-    };
 
     const combinedGapUtilities = _.fromPairs(
       _.concat(
