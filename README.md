@@ -35,7 +35,7 @@ npm install tailwindcss-gap
 }
 ```
 
-This plugin generates the following CSS (in the `@tailwind components` slot, so that padding and margin utilities can override them):
+This plugin generates the following CSS (in the `@tailwind components` slot, so that padding and margin utilities can override gap utilities):
 
 ```css
 .gap, .gap-padding {
