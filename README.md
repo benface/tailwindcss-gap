@@ -10,18 +10,14 @@ npm install tailwindcss-gap
 
 ```js
 // tailwind.config.js
-{
+module.exports = {
   theme: {
-    gap: { // defaults to {}
+    gap: { // defaults to theme => theme('spacing')
       '0': '0',
       '1': '0.25rem',
       '2': '0.5rem',
       '3': '0.75rem',
       '4': '1rem',
-      '5': '1.25rem',
-      '6': '1.5rem',
-      '7': '1.75rem',
-      '8': '2rem',
     },
   },
   variants: {
@@ -32,7 +28,7 @@ npm install tailwindcss-gap
       legacy: false, // defaults to false, set to true to output IE-compatible CSS (no custom properties, but much larger CSS for the same functionality)
     }),
   ],
-}
+};
 ```
 
 This plugin generates the following CSS (in the `@tailwind components` slot, so that padding and margin utilities can override gap utilities):

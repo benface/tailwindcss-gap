@@ -1,23 +1,22 @@
+const plugin = require('tailwindcss/plugin');
 const _ = require('lodash');
 const valueParser = require('postcss-value-parser');
+
+const defaultOptions = {
+  legacy: false,
+};
 
 const getHalfValue = function(value) {
   const parsedValue = valueParser.unit(value);
   return `${parsedValue.number / 2}${parsedValue.unit}`;
 };
 
-module.exports = function(options = {}) {
-  return ({ theme, variants, addComponents, e }) => {
-    const defaultOptions = {
-      legacy: false,
-    };
+module.exports = plugin.withOptions(function(options = {}) {
+  return function({ theme, variants, addComponents, e }) {
     options = _.defaults({}, options, defaultOptions);
 
-    const defaultGapTheme = {};
-    const defaultGapVariants = ['responsive'];
-
-    const gapTheme = theme('gap', defaultGapTheme);
-    const gapVariants = variants('gap', defaultGapVariants);
+    const gapTheme = theme('gap');
+    const gapVariants = variants('gap');
 
     if (!options.legacy) {
       addComponents({
@@ -162,4 +161,13 @@ module.exports = function(options = {}) {
       addComponents(gapUtilities);
     }
   };
-};
+}, function() {
+  return {
+    theme: {
+      gap: theme => theme('spacing'),
+    },
+    variants: {
+      gap: ['responsive'],
+    }
+  };
+});
