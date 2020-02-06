@@ -3,6 +3,7 @@ const _ = require('lodash');
 const valueParser = require('postcss-value-parser');
 
 const defaultOptions = {
+  prefix: 'c-',
   legacy: false,
 };
 
@@ -20,7 +21,7 @@ module.exports = plugin.withOptions(function(options = {}) {
 
     if (!options.legacy) {
       addComponents({
-        '.gap, .gap-padding': {
+        [`.${e(`${options.prefix}gap`)}, .${e(`${options.prefix}gap-padding`)}`]: {
           '--gap-x': '0px',
           '--gap-y': '0px',
           '--gap-x-half': 'calc(var(--gap-x) / 2)',
@@ -29,10 +30,10 @@ module.exports = plugin.withOptions(function(options = {}) {
           '--gap-y-half-negative': 'calc(var(--gap-y-half) * -1)',
           margin: 'var(--gap-y-half-negative) var(--gap-x-half-negative)',
         },
-        '.gap > *': {
+        [`.${e(`${options.prefix}gap`)} > *`]: {
           margin: 'var(--gap-y-half) var(--gap-x-half)',
         },
-        '.gap-padding > *': {
+        [`.${e(`${options.prefix}gap-padding`)} > *`]: {
           padding: 'var(--gap-y-half) var(--gap-x-half)',
         },
       });
@@ -46,19 +47,19 @@ module.exports = plugin.withOptions(function(options = {}) {
             const negativeHalfValue = `-${halfValue}`;
             return [
               [
-                `.${e(`gap-${modifier}`)}`,
+                `.${e(`${options.prefix}gap-${modifier}`)}`,
                 {
                   margin: negativeHalfValue,
                 },
               ],
               [
-                `.${e(`gap-${modifier}`)}:not([class*="gap-padding"]) > *`,
+                `.${e(`${options.prefix}gap-${modifier}`)}:not([class*="gap-padding"]) > *`,
                 {
                   margin: halfValue,
                 },
               ],
               [
-                `.${e(`gap-${modifier}`)}[class*="gap-padding"] > *`,
+                `.${e(`${options.prefix}gap-${modifier}`)}[class*="gap-padding"] > *`,
                 {
                   padding: halfValue,
                 },
@@ -67,7 +68,7 @@ module.exports = plugin.withOptions(function(options = {}) {
           }
           return [
             [
-              `.${e(`gap-${modifier}`)}`,
+              `.${e(`${options.prefix}gap-${modifier}`)}`,
               {
                 '--gap-x': value,
                 '--gap-y': value,
@@ -86,42 +87,42 @@ module.exports = plugin.withOptions(function(options = {}) {
             const negativeHalfValue = `-${halfValue}`;
             return [
               [
-                `.${e(`gap-x-${modifier}`)}`,
+                `.${e(`${options.prefix}gap-x-${modifier}`)}`,
                 {
                   marginLeft: negativeHalfValue,
                   marginRight: negativeHalfValue,
                 },
               ],
               [
-                `.${e(`gap-x-${modifier}`)}:not([class*="gap-padding"]) > *`,
+                `.${e(`${options.prefix}gap-x-${modifier}`)}:not([class*="gap-padding"]) > *`,
                 {
                   marginLeft: halfValue,
                   marginRight: halfValue,
                 },
               ],
               [
-                `.${e(`gap-x-${modifier}`)}[class*="gap-padding"] > *`,
+                `.${e(`${options.prefix}gap-x-${modifier}`)}[class*="gap-padding"] > *`,
                 {
                   paddingLeft: halfValue,
                   paddingRight: halfValue,
                 },
               ],
               [
-                `.${e(`gap-y-${modifier}`)}`,
+                `.${e(`${options.prefix}gap-y-${modifier}`)}`,
                 {
                   marginTop: negativeHalfValue,
                   marginBottom: negativeHalfValue,
                 },
               ],
               [
-                `.${e(`gap-y-${modifier}`)}:not([class*="gap-padding"]) > *`,
+                `.${e(`${options.prefix}gap-y-${modifier}`)}:not([class*="gap-padding"]) > *`,
                 {
                   marginTop: halfValue,
                   marginBottom: halfValue,
                 },
               ],
               [
-                `.${e(`gap-y-${modifier}`)}[class*="gap-padding"] > *`,
+                `.${e(`${options.prefix}gap-y-${modifier}`)}[class*="gap-padding"] > *`,
                 {
                   paddingTop: halfValue,
                   paddingBottom: halfValue,
@@ -131,13 +132,13 @@ module.exports = plugin.withOptions(function(options = {}) {
           }
           return [
             [
-              `.${e(`gap-x-${modifier}`)}`,
+              `.${e(`${options.prefix}gap-x-${modifier}`)}`,
               {
                 '--gap-x': value,
               },
             ],
             [
-              `.${e(`gap-y-${modifier}`)}`,
+              `.${e(`${options.prefix}gap-y-${modifier}`)}`,
               {
                 '--gap-y': value,
               },
@@ -159,15 +160,6 @@ module.exports = plugin.withOptions(function(options = {}) {
     }
     else {
       addComponents(gapUtilities);
-    }
-  };
-}, function() {
-  return {
-    theme: {
-      gap: theme => theme('spacing'),
-    },
-    variants: {
-      gap: ['responsive'],
     }
   };
 });
