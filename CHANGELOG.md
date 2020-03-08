@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.2] - 2020-03-08
+
+### Fixed
+- Fixed botched release of v5.0.1
+- Fixed an issue where a `0` gap in one dimension would break the gaps in the other dimension (e.g. `c-gap c-gap-x-4 c-gap-y-0`)
+
 ## [5.0.1] - 2020-03-08
 
 ### Fixed
@@ -78,7 +84,8 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 Initial release
 
-[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v5.0.1...HEAD
+[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v5.0.2...HEAD
+[5.0.2]: https://github.com/benface/tailwindcss-gap/compare/v5.0.0...v5.0.2
 [5.0.1]: https://github.com/benface/tailwindcss-gap/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/benface/tailwindcss-gap/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/benface/tailwindcss-gap/compare/v3.1.1...v4.0.0
