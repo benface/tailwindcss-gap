@@ -30,19 +30,26 @@ const generatePluginCss = (config, pluginOptions = {}) => {
 
 const baseCss = `
   .c-gap, .c-gap-padding {
-    --gap-x: 0px;
-    --gap-y: 0px;
     --gap-x-half: calc(var(--gap-x) / 2);
     --gap-x-half-negative: calc(var(--gap-x-half) * -1);
     --gap-y-half: calc(var(--gap-y) / 2);
     --gap-y-half-negative: calc(var(--gap-y-half) * -1);
-    margin: var(--gap-y-half-negative) var(--gap-x-half-negative);
+    margin-left: var(--gap-x-half-negative);
+    margin-right: var(--gap-x-half-negative);
+    margin-top: var(--gap-y-half-negative);
+    margin-bottom: var(--gap-y-half-negative);
   }
   .c-gap > * {
-    margin: var(--gap-y-half) var(--gap-x-half);
+    margin-left: var(--gap-x-half);
+    margin-right: var(--gap-x-half);
+    margin-top: var(--gap-y-half);
+    margin-bottom: var(--gap-y-half);
   }
   .c-gap-padding > * {
-    padding: var(--gap-y-half) var(--gap-x-half);
+    padding-left: var(--gap-x-half);
+    padding-right: var(--gap-x-half);
+    padding-top: var(--gap-y-half);
+    padding-bottom: var(--gap-y-half);
   }
 `;
 
@@ -865,19 +872,26 @@ test('the prefix can be customized', () => {
   }).then(css => {
     expect(css).toMatchCss(`
       .gap, .gap-padding {
-        --gap-x: 0px;
-        --gap-y: 0px;
         --gap-x-half: calc(var(--gap-x) / 2);
         --gap-x-half-negative: calc(var(--gap-x-half) * -1);
         --gap-y-half: calc(var(--gap-y) / 2);
         --gap-y-half-negative: calc(var(--gap-y-half) * -1);
-        margin: var(--gap-y-half-negative) var(--gap-x-half-negative);
+        margin-left: var(--gap-x-half-negative);
+        margin-right: var(--gap-x-half-negative);
+        margin-top: var(--gap-y-half-negative);
+        margin-bottom: var(--gap-y-half-negative);
       }
       .gap > * {
-        margin: var(--gap-y-half) var(--gap-x-half);
+        margin-left: var(--gap-x-half);
+        margin-right: var(--gap-x-half);
+        margin-top: var(--gap-y-half);
+        margin-bottom: var(--gap-y-half);
       }
       .gap-padding > * {
-        padding: var(--gap-y-half) var(--gap-x-half);
+        padding-left: var(--gap-x-half);
+        padding-right: var(--gap-x-half);
+        padding-top: var(--gap-y-half);
+        padding-bottom: var(--gap-y-half);
       }
       .gap-0 {
         --gap-x: 0;

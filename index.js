@@ -22,19 +22,26 @@ module.exports = plugin.withOptions(function(options = {}) {
     if (!options.legacy) {
       addComponents({
         [`.${e(`${options.prefix}gap`)}, .${e(`${options.prefix}gap-padding`)}`]: {
-          '--gap-x': '0px',
-          '--gap-y': '0px',
           '--gap-x-half': 'calc(var(--gap-x) / 2)',
           '--gap-x-half-negative': 'calc(var(--gap-x-half) * -1)',
           '--gap-y-half': 'calc(var(--gap-y) / 2)',
           '--gap-y-half-negative': 'calc(var(--gap-y-half) * -1)',
-          margin: 'var(--gap-y-half-negative) var(--gap-x-half-negative)',
+          marginLeft: 'var(--gap-x-half-negative)',
+          marginRight: 'var(--gap-x-half-negative)',
+          marginTop: 'var(--gap-y-half-negative)',
+          marginBottom: 'var(--gap-y-half-negative)',
         },
         [`.${e(`${options.prefix}gap`)} > *`]: {
-          margin: 'var(--gap-y-half) var(--gap-x-half)',
+          marginLeft: 'var(--gap-x-half)',
+          marginRight: 'var(--gap-x-half)',
+          marginTop: 'var(--gap-y-half)',
+          marginBottom: 'var(--gap-y-half)',
         },
         [`.${e(`${options.prefix}gap-padding`)} > *`]: {
-          padding: 'var(--gap-y-half) var(--gap-x-half)',
+          paddingLeft: 'var(--gap-x-half)',
+          paddingRight: 'var(--gap-x-half)',
+          paddingTop: 'var(--gap-y-half)',
+          paddingBottom: 'var(--gap-y-half)',
         },
       });
     }
