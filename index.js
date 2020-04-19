@@ -21,6 +21,13 @@ module.exports = plugin.withOptions(function(options = {}) {
 
     if (!options.legacy) {
       addComponents({
+        [`.${e(`${options.prefix}gap-wrapper`)}`]: {
+          display: 'flow-root',
+        },
+        [`.${e(`${options.prefix}gap-wrapper`)}::before, .${e(`${options.prefix}gap-wrapper`)}::after`]: {
+          content: "''",
+          display: 'table',
+        },
         [`.${e(`${options.prefix}gap`)}, .${e(`${options.prefix}gap-padding`)}`]: {
           '--gap-x': '0px',
           '--gap-y': '0px',

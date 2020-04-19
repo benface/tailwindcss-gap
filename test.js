@@ -29,6 +29,13 @@ const generatePluginCss = (config, pluginOptions = {}) => {
 };
 
 const baseCss = `
+  .c-gap-wrapper {
+    display: flow-root;
+  }
+  .c-gap-wrapper::before, .c-gap-wrapper::after {
+    content: '';
+    display: table;
+  }
   .c-gap, .c-gap-padding {
     --gap-x: 0px;
     --gap-y: 0px;
@@ -864,6 +871,13 @@ test('the prefix can be customized', () => {
     prefix: '',
   }).then(css => {
     expect(css).toMatchCss(`
+      .gap-wrapper {
+        display: flow-root;
+      }
+      .gap-wrapper::before, .gap-wrapper::after {
+        content: '';
+        display: table;
+      }
       .gap, .gap-padding {
         --gap-x: 0px;
         --gap-y: 0px;

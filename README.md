@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Tailwind 1.2 comes with `gap`, `row-gap`, and `col-gap` utilities, but the underlying CSS properties only work in the context of CSS Grid at the moment (except in Firefox which also supports `gap` in Flexbox). This plugin uses a known workaround to achieve the same thing in Flexbox, which is to apply negative margin on the container element and positive margin or padding on the children. Since there is a naming conflict with Tailwind’s `gap-*` classes, this plugin uses `c-gap-*` by default, but you can customize it with the `prefix` option. You can even use an empty prefix to generate `gap-*` classes and disable Tailwind’s native gap utilities [by setting `gap` to `false` in your config’s `corePlugins` object](https://tailwindcss.com/docs/configuration/#core-plugins) if you don’t plan on using CSS Grid.
+Tailwind 1.2 comes with `gap`, `row-gap`, and `col-gap` utilities, but the underlying CSS properties only work in the context of CSS Grid at the moment (except in Firefox which also supports `gap` in Flexbox). This plugin uses a known workaround to achieve the same thing in Flexbox or even in good old block layout, which is to apply negative margin on the container element and positive margin or padding on the children. Since there is a naming conflict with Tailwind’s `gap-*` classes, this plugin uses `c-gap-*` by default, but you can customize it with the `prefix` option. You can even use an empty prefix to generate `gap-*` classes and disable Tailwind’s native gap utilities [by setting `gap` to `false` in your config’s `corePlugins` object](https://tailwindcss.com/docs/configuration/#core-plugins) if you don’t plan on using CSS Grid.
 
 ## Requirements
 
@@ -43,29 +43,33 @@ module.exports = {
 This plugin generates the following CSS (in the `@tailwind components` slot, so that padding and margin utilities can override gap utilities):
 
 ```css
+.c-gap-wrapper {
+  display: flow-root;
+}
+.c-gap-wrapper::before, .c-gap-wrapper::after {
+  content: '';
+  display: table;
+}
 .c-gap, .c-gap-padding {
+  --gap-x: 0px;
+  --gap-y: 0px;
   --gap-x-half: calc(var(--gap-x) / 2);
   --gap-x-half-negative: calc(var(--gap-x-half) * -1);
   --gap-y-half: calc(var(--gap-y) / 2);
   --gap-y-half-negative: calc(var(--gap-y-half) * -1);
-  margin-left: var(--gap-x-half-negative);
-  margin-right: var(--gap-x-half-negative);
-  margin-top: var(--gap-y-half-negative);
-  margin-bottom: var(--gap-y-half-negative);
+  margin: var(--gap-y-half-negative) var(--gap-x-half-negative);
 }
 .c-gap > * {
-  margin-left: var(--gap-x-half);
-  margin-right: var(--gap-x-half);
-  margin-top: var(--gap-y-half);
-  margin-bottom: var(--gap-y-half);
+  margin: var(--gap-y-half) var(--gap-x-half);
 }
 .c-gap-padding > * {
-  padding-left: var(--gap-x-half);
-  padding-right: var(--gap-x-half);
-  padding-top: var(--gap-y-half);
-  padding-bottom: var(--gap-y-half);
+  padding: var(--gap-y-half) var(--gap-x-half);
 }
 
+.c-gap-0 {
+  --gap-x: 0px;
+  --gap-y: 0px;
+}
 .c-gap-1 {
   --gap-x: 0.25rem;
   --gap-y: 0.25rem;
@@ -76,6 +80,12 @@ This plugin generates the following CSS (in the `@tailwind components` slot, so 
 }
 /* etc. */
 
+.c-gap-x-0 {
+  --gap-x: 0px;
+}
+.c-gap-y-0 {
+  --gap-y: 0px;
+}
 .c-gap-x-1 {
   --gap-x: 0.25rem;
 }
@@ -94,58 +104,63 @@ This plugin generates the following CSS (in the `@tailwind components` slot, so 
 Which you can then use in your HTML like this:
 
 ```html
-<div class="flex flex-wrap c-gap c-gap-8">
-  <div class="w-4 h-4 rounded-full bg-blue"></div>
-  <div class="w-4 h-4 rounded-full bg-blue"></div>
-  <div class="w-4 h-4 rounded-full bg-blue"></div>
+<div class="c-gap-wrapper overflow-hidden">
+  <div class="flex flex-wrap c-gap c-gap-8">
+    <div class="w-4 h-4 rounded-full bg-blue"></div>
+    <div class="w-4 h-4 rounded-full bg-blue"></div>
+    <div class="w-4 h-4 rounded-full bg-blue"></div>
+  </div>
 </div>
 
-<div class="sm:flex c-gap-padding sm:gap-x-8">
-  <div class="w-1/2">
-    Column 1
-  </div>
-  <div class="w-1/2">
-    Column 2
+<div class="c-gap-wrapper overflow-hidden">
+  <div class="sm:flex c-gap-padding sm:c-gap-x-8">
+    <div class="w-1/2">
+      Column 1
+    </div>
+    <div class="w-1/2">
+      Column 2
+    </div>
   </div>
 </div>
 ```
 
-## Nesting (known issue)
-
-Due to how gaps are implemented, you can’t nest them directly:
+The `c-gap-wrapper` element is not required, but strongly recommended to avoid issues related to collapsing margins. You should also add `overflow-hidden` to that element if you can in order to prevent unwanted horizontal scrolling caused by the negative margins. Any margin, padding, border, or background utilities should be added to the `c-gap-wrapper` element rather than the `c-gap` or `c-gap-padding`. Note that you cannot nest `c-gap` elements directly, but you can nest them by using `c-gap-wrapper`:
 
 ```html
-<div class="flex flex-column c-gap c-gap-y-2">
-  <div class="flex c-gap c-gap-x-2">
-    <div> This doesn’t work </div>
-    <div> unfortunately </div>
-    <div> because </div>
-  </div>
-  <div class="flex c-gap c-gap-x-2">
-    <div> a "gap" element </div>
-    <div> cannot have a direct child </div>
-    <div> that is also a "gap" element </div>
+<div class="c-gap-wrapper overflow-hidden">
+  <div class="flex flex-col c-gap c-gap-y-4">
+    <div class="c-gap-wrapper">
+      <div class="flex flex-wrap c-gap c-gap-2">
+        <div>First</div>
+        <div>Second</div>
+        <div>Third</div>
+      </div>
+    </div>
+    <div class="c-gap-wrapper">
+      <div class="flex flex-wrap c-gap c-gap-2">
+        <div>First</div>
+        <div>Second</div>
+        <div>Third</div>
+      </div>
+    </div>
   </div>
 </div>
 ```
 
-Instead, you need to wrap every child `c-gap` element with another element, like a simple `<div>` (although it can be any element):
+It is also strongly recommended to use `c-gap` on `flex` containers since margins don’t collapse between flex items. If you want to apply a gap between items inside a regular block container, you should use `c-gap-padding` instead of `c-gap` for the gaps to be the expected size:
 
 ```html
-<div class="flex flex-column c-gap c-gap-y-2">
-  <div>
-    <div class="flex c-gap c-gap-x-2">
-      <div> This is fine </div>
-      <div> because </div>
-      <div> the child "gap" elements </div>
-    </div>
-  </div>
-  <div>
-    <div class="flex c-gap c-gap-x-2">
-      <div> are no longer </div>
-      <div> direct children </div>
-      <div> of another "gap" </div>
-    </div>
-  </div>
+<div class="c-gap-wrapper">
+  <ul class="c-gap-padding c-gap-y-4">
+    <li class="block">
+      First item
+    </li>
+    <li class="block">
+      Second item
+    </li>
+    <li class="block">
+      Third item
+    </li>
+  </ul>
 </div>
 ```
