@@ -17,10 +17,10 @@
   },
   "devDependencies": {
     "github-release-from-changelog": "^2.1.1",
-    "jest": "^25.1.0",
+    "jest": "^25.3.0",
     "jest-matcher-css": "^1.1.0",
     "postcss": "^7.0.27",
-    "release-it": "^13.0.0",
+    "release-it": "^13.5.4",
     "tailwindcss": "1.2.0"
   }
 }
