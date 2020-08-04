@@ -160,13 +160,6 @@ module.exports = plugin.withOptions(function(options = {}) {
       ...splitGapUtilities,
     };
 
-    if (gapVariants.length > 0) {
-      addComponents({
-        [`@variants ${gapVariants.join(', ')}`]: gapUtilities,
-      });
-    }
-    else {
-      addComponents(gapUtilities);
-    }
+    addComponents(gapUtilities, gapVariants);
   };
 });

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.0] - 2020-08-04
+
+### Changed
+- Got rid of the internal hack we used in order to support variants, thanks to Tailwind’s `addComponents()` accepting a `variants` option since v1.5
+
 ## [6.0.0] - 2020-04-19
 
 ### Added
@@ -92,7 +97,8 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 
 Initial release
 
-[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/benface/tailwindcss-gap/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/benface/tailwindcss-gap/compare/v6.0.0...v7.0.0
 [6.0.0]: https://github.com/benface/tailwindcss-gap/compare/v5.0.2...v6.0.0
 [5.0.2]: https://github.com/benface/tailwindcss-gap/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/benface/tailwindcss-gap/compare/v5.0.0...v5.0.1

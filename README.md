@@ -10,7 +10,7 @@ Tailwind 1.2 comes with `gap`, `row-gap`, and `col-gap` utilities, but the under
 
 ## Requirements
 
-This plugin requires Tailwind CSS 1.2 or later. If your project uses an older version of Tailwind, you should install the latest 3.x version of this plugin (`npm install tailwindcss-gap@3.x`).
+This plugin requires Tailwind CSS 1.5 or later. If your project uses an older version of Tailwind, you should install the latest 3.x version of this plugin (`npm install tailwindcss-gap@3.x`).
 
 ## Installation
 
@@ -44,7 +44,7 @@ module.exports = {
 };
 ```
 
-This plugin generates the following CSS (in the `@tailwind components` slot, so that padding and margin utilities can override gap utilities):
+This plugin generates the following CSS (in the `@tailwind components` layer, so that padding and margin utilities can override gap utilities):
 
 ```css
 .c-gap-wrapper {
