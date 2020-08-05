@@ -10,6 +10,9 @@ and this project mostly adheres to [Semantic Versioning](https://semver.org/spec
 ### Changed
 - Got rid of the internal hack we used in order to support variants, thanks to Tailwind’s `addComponents()` accepting a `variants` option since v1.5
 
+### Removed
+- Removed the `legacy` option; use Tailwind’s `target` option instead (see `README` for more information)
+
 ## [6.0.0] - 2020-04-19
 
 ### Added

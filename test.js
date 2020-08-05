@@ -947,8 +947,9 @@ test('the prefix can be customized', () => {
   });
 });
 
-test('legacy mode outputs IE-compatible CSS', () => {
+test('the ie11 target mode is supported', () => {
   return generatePluginCss({
+    target: 'ie11',
     theme: {
       gap: {
         '1': '0.25rem',
@@ -958,8 +959,6 @@ test('legacy mode outputs IE-compatible CSS', () => {
     variants: {
       gap: [],
     },
-  }, {
-    legacy: true,
   }).then(css => {
     expect(css).toMatchCss(`
       .c-gap-1 {
@@ -1032,8 +1031,9 @@ test('legacy mode outputs IE-compatible CSS', () => {
   });
 });
 
-test('legacy mode works with variants', () => {
+test('ie11 mode works with variants', () => {
   return generatePluginCss({
+    target: 'ie11',
     theme: {
       gap: {
         '1': '0.25rem',
@@ -1043,8 +1043,6 @@ test('legacy mode works with variants', () => {
     variants: {
       gap: ['responsive', 'hover'],
     },
-  }, {
-    legacy: true,
   }).then(css => {
     expect(css).toMatchCss(`
       .c-gap-1 {

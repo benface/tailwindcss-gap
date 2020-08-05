@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Tailwind 1.2 comes with `gap`, `row-gap`, and `col-gap` utilities, but the underlying CSS properties only work in the context of CSS Grid at the moment (except in Firefox which also supports `gap` in Flexbox). This plugin uses a known workaround to achieve the same thing in Flexbox or even in good old block layout, which is to apply negative margin on the container element and positive margin or padding on the children. Since there is a naming conflict with Tailwind’s `gap-*` classes, this plugin uses `c-gap-*` by default, but you can customize it with the `prefix` option. You can even use an empty prefix to generate `gap-*` classes and disable Tailwind’s native gap utilities [by setting `gap` to `false` in your config’s `corePlugins` object](https://tailwindcss.com/docs/configuration/#core-plugins) if you don’t plan on using CSS Grid.
+Tailwind 1.2 comes with `gap`, `row-gap`, and `col-gap` utilities, but the underlying CSS properties only work in the context of CSS Grid at the moment (except in Firefox which also supports `gap` in Flexbox). This plugin uses a known workaround to achieve the same thing in Flexbox or even in good old block layout, which is to apply negative margin on the container element and positive margin or padding on the children. Since there is a naming conflict with Tailwind’s `gap-*` classes, this plugin uses `c-gap-*` by default, but you can customize the `c-` prefix with the `prefix` option. You can even use an empty prefix to generate `gap-*` classes and disable Tailwind’s native gap utilities [by setting `gap` to `false` in your config’s `corePlugins` object](https://tailwindcss.com/docs/configuration/#core-plugins) if you don’t plan on using CSS Grid.
 
 ## Requirements
 
@@ -23,6 +23,7 @@ npm install tailwindcss-gap
 ```js
 // tailwind.config.js
 module.exports = {
+  target: 'ie11', // if you want IE11 support, set this and the plugin will generate IE-compatible CSS (which is much larger because it cannot use custom properties)
   theme: {
     gap: { // defaults to theme => theme('spacing') as per Tailwind 1.2
       '0': '0',
@@ -38,7 +39,6 @@ module.exports = {
   plugins: [
     require('tailwindcss-gap')({
       prefix: 'c-',   // defaults to 'c-'
-      legacy: false,  // defaults to false, set to true to output IE-compatible CSS (no custom properties, but much larger CSS for the same functionality)
     }),
   ],
 };

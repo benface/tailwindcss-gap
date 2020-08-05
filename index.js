@@ -4,7 +4,6 @@ const valueParser = require('postcss-value-parser');
 
 const defaultOptions = {
   prefix: 'c-',
-  legacy: false,
 };
 
 const getHalfValue = function(value) {
@@ -13,13 +12,14 @@ const getHalfValue = function(value) {
 };
 
 module.exports = plugin.withOptions(function(options = {}) {
-  return function({ theme, variants, addComponents, e }) {
+  return function({ theme, variants, target, addComponents, e }) {
     options = _.defaults({}, options, defaultOptions);
 
     const gapTheme = theme('gap');
     const gapVariants = variants('gap');
+    const ie11 = target('gap') === 'ie11'
 
-    if (!options.legacy) {
+    if (!ie11) {
       addComponents({
         [`.${e(`${options.prefix}gap-wrapper`)}`]: {
           display: 'flow-root',
@@ -49,7 +49,7 @@ module.exports = plugin.withOptions(function(options = {}) {
     const combinedGapUtilities = _.fromPairs(
       _.concat(
         ..._.map(gapTheme, (value, modifier) => {
-          if (options.legacy) {
+          if (ie11) {
             const halfValue = getHalfValue(value);
             const negativeHalfValue = `-${halfValue}`;
             return [
@@ -89,7 +89,7 @@ module.exports = plugin.withOptions(function(options = {}) {
     const splitGapUtilities = _.fromPairs(
       _.concat(
         ..._.map(gapTheme, (value, modifier) => {
-          if (options.legacy) {
+          if (ie11) {
             const halfValue = getHalfValue(value);
             const negativeHalfValue = `-${halfValue}`;
             return [
