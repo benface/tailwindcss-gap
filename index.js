@@ -12,12 +12,13 @@ const getHalfValue = function(value) {
 };
 
 module.exports = plugin.withOptions(function(options = {}) {
-  return function({ theme, variants, target, addComponents, e }) {
+  return function({ theme, variants, target, addComponents, e, config }) {
     options = _.defaults({}, options, defaultOptions);
 
     const gapTheme = theme('gap');
     const gapVariants = variants('gap');
-    const ie11 = target('gap') === 'ie11'
+    // The `target` feature has been removed in Tailwind CSS v2.0
+    const ie11 = typeof target === 'function' ? target('gap') === 'ie11' : config('target') === 'ie11';
 
     if (!ie11) {
       addComponents({
