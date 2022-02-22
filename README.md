@@ -1,6 +1,6 @@
-# [BLACK LIVES MATTER](https://blacklivesmatters.carrd.co)
+# ⛔️ DEPRECATED
 
-### Be aware. Be angry. Do better. Demand change. Show your support any way you can. Click on the link above to find protests, petitions, and other ways to help. DO NOT LET IT GO SILENT.
+The [`gap` CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) is now supported in all major browsers, both in Grid layout and in Flexbox layout, and Tailwind CSS has [utilities for it](https://tailwindcss.com/docs/gap), so there is really no reason to use this plugin anymore.
 
 # Gap Plugin for Tailwind CSS
 
